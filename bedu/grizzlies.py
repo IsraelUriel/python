@@ -25,7 +25,7 @@ import seaborn as sns
 #   url: String with the url to get the data
 #   normalize: Boolean to normalize the data
 #   elements: Integer with the number of elements to show
-def load_data_api(url, elements = 5):
+def load_data_api(url, headers, elements = 5):
     try: 
         # Realizamos una solicitud GET a la URL proporcionada con los encabezados especificados
         response = requests.get(url, headers=headers)
