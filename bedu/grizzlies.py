@@ -27,24 +27,19 @@ import seaborn as sns
 #   elements: Integer with the number of elements to show
 def load_data_api(url, headers, elements = 5):
     try: 
-        # Realizamos una solicitud GET a la URL proporcionada con los encabezados especificados
         response = requests.get(url, headers=headers)
-        # Imprimimos los primeros 1000 caracteres de la respuesta
-        print(response.content[:1000].decode("utf-8"))
         if response.status_code == 200:
-            # Si la respuesta es correcta, trabajamos con el archivo zip en memoria
             with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-                data = archive.open("avocado.csv")
-            df = pd.read_csv(response.content)
-            # Imprimimos información sobre el dataframe
-            print('Información del dataframe')
+                csv_file = archive.open("avocado.csv")
+            df = pd.read_csv(csv_file, parse_dates=["Date"])
+            print('Dataframe Info')
             print('-----------------------------------------------------------------------------')
             print(df.head(elements))
             print('-----------------------------------------------------------------------------')
             print(df.info())
             return df
         else:
-            raise Exception("No se pudo recuperar los datos de la API")
+            raise Exception("Failed to retrieve data from the API")
     except Exception as e:
         print(str(e))
         
