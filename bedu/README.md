@@ -2,12 +2,12 @@ Proyecto EQUIPO 6 BEDU
 
 EQUIPO: 6
 **ALUMNOS:**
-Omar Arellano Carballo
-Emmanuel Acevedo Díaz
-José Bernal Fonseca
-Israel Uriel Ramírez Montoya
-Haniel Mizraim Rojo Salazar
-Oscar Herrasti Real
+- Omar Arellano Carballo
+- Emmanuel Acevedo Díaz
+- José Bernal Fonseca
+- Israel Uriel Ramírez Montoya
+- Haniel Mizraim Rojo Salazar
+- Oscar Herrasti Real
 
 
 Ligas de relevantes del proyecto:
