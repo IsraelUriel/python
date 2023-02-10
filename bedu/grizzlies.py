@@ -25,23 +25,26 @@ import seaborn as sns
 #   url: String with the url to get the data
 #   normalize: Boolean to normalize the data
 #   elements: Integer with the number of elements to show
-def load_data_api(url, normalize = False, elements = 5):
+def load_data_api(url, elements = 5):
     try: 
-        response = requests.get(url)
+        # Realizamos una solicitud GET a la URL proporcionada con los encabezados especificados
+        response = requests.get(url, headers=headers)
+        # Imprimimos los primeros 1000 caracteres de la respuesta
+        print(response.content[:1000].decode("utf-8"))
         if response.status_code == 200:
-            data = json.loads(response.content)
-            if normalize:
-                data = pd.json_normalize(data)
-                print('Data normalized')
-            df = pd.DataFrame(data)
-            print('Dataframe Info')
+            # Si la respuesta es correcta, trabajamos con el archivo zip en memoria
+            with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+                data = archive.open("avocado.csv")
+            df = pd.read_csv(response.content)
+            # Imprimimos información sobre el dataframe
+            print('Información del dataframe')
             print('-----------------------------------------------------------------------------')
             print(df.head(elements))
             print('-----------------------------------------------------------------------------')
             print(df.info())
             return df
         else:
-            raise Exception("Failed to retrieve data from the API")
+            raise Exception("No se pudo recuperar los datos de la API")
     except Exception as e:
         print(str(e))
         
